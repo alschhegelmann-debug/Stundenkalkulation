@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kalkulator">
+<title>Stundenkalkulator</title>
+<style>
+  :root {
+    --bg: #f5f5f7; --surface: #ffffff; --border: #e0e0e0;
+    --accent: #0071e3; --accent-light: #e8f1fd;
+    --green: #1d9e75; --green-light: #e1f5ee;
+    --red: #d85a30; --red-light: #faece7;
+    --text: #1d1d1f; --muted: #6e6e73; --hint: #aeaeb2;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16px; min-height: 100vh; padding-bottom: 40px; }
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 20px 14px; position: sticky; top: 0; z-index: 10; }
+  header h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; }
+  header p { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .page { padding: 16px; max-width: 540px; margin: 0 auto; }
+  .card { background: var(--surface); border-radius: 14px; margin-bottom: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); padding: 14px 16px 6px; }
+  .row { display: flex; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); gap: 10px; }
+  .row:last-child { border-bottom: none; }
+  .row label { flex: 1; font-size: 15px; color: var(--text); }
+  .row label small { display: block; font-size: 11px; color: var(--hint); margin-top: 1px; }
+  .row input { width: 110px; text-align: right; font-size: 15px; font-weight: 500; padding: 6px 10px; border-radius: 9px; border: 1px solid var(--border); background: var(--bg); color: var(--text); -webkit-appearance: none; }
+  .row input:focus { outline: none; border-color: var(--accent); background: #fff; }
+  .unit { font-size: 13px; color: var(--muted); width: 26px; text-align: right; }
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .kpi { background: var(--surface); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .kpi .klabel { font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+  .kpi .kval { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; color: var(--accent); }
+  .kpi .ksub { font-size: 11px; color: var(--hint); margin-top: 3px; }
+  .vk-card { background: var(--accent-light); border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+  .vk-card label { font-size: 15px; font-weight: 600; color: var(--accent); flex: 1; }
+  .vk-card input { width: 130px; text-align: right; font-size: 18px; font-weight: 700; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--accent); background: #fff; color: var(--accent); -webkit-appearance: none; }
+  .vk-card input:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
+  .vk-unit { font-size: 15px; color: var(--accent); font-weight: 600; width: 22px; }
+  .marge-card { background: var(--surface); border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow); }
+  .marge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .marge-big { text-align: center; padding: 12px 8px; border-radius: 10px; background: var(--bg); }
+  .marge-big .mlabel { font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+  .marge-big .mnum { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: var(--text); }
+  .marge-big.green { background: var(--green-light); } .marge-big.green .mnum { color: var(--green); }
+  .marge-big.red { background: var(--red-light); } .marge-big.red .mnum { color: var(--red); }
+  .bar-bg { background: var(--border); border-radius: 6px; height: 9px; overflow: hidden; margin-top: 4px; }
+  .bar-fill { height: 100%; border-radius: 6px; background: var(--green); transition: width 0.35s; }
+  .bar-fill.warn { background: #ef9f27; } .bar-fill.danger { background: var(--red); }
+  .bar-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--hint); margin-top: 3px; }
+  .be-card { background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .be-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); padding: 14px 16px 6px; }
+  .be-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+  .be-row:last-child { border-bottom: none; }
+  .be-row span:first-child { font-size: 14px; color: var(--muted); }
+  .be-row span:last-child { font-size: 15px; font-weight: 600; color: var(--text); }
+  .be-row.hl span:last-child { color: var(--accent); }
+  footer { text-align: center; font-size: 11px; color: var(--hint); margin-top: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Stundenkalkulator</h1>
+  <p>Truck Doctor GmbH · EK / VK / Marge</p>
+</header>
+<div class="page">
+
+  <div class="card">
+    <div class="card-title">Personal</div>
+    <div class="row"><label>Bruttolohn Mitarbeiter</label><input type="number" inputmode="decimal" id="brutto" value="2950" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>AG-Sozialabgaben (~21%)</label><input type="number" inputmode="decimal" id="sozial" value="619" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Verpflegungspauschale<small>z.B. 21 Tage × 14 € = 294 €</small></label><input type="number" inputmode="decimal" id="verpfl" value="294" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Arbeitskleidung / PSA<small>Overalls, Schuhe, Schutzausrüstung ø</small></label><input type="number" inputmode="decimal" id="kleidung" value="0" oninput="calc()"><span class="unit">€</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Fahrzeug</div>
+    <div class="row"><label>Leasing / Miete (inkl. Versicherung)</label><input type="number" inputmode="decimal" id="fzg" value="800" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Kraftstoff / DKV</label><input type="number" inputmode="decimal" id="kraft" value="0" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Maut / Parken</label><input type="number" inputmode="decimal" id="maut" value="0" oninput="calc()"><span class="unit">€</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Werkzeug &amp; Material</div>
+    <div class="row"><label>Werkzeug-Amortisierung<small>Kaufpreis ÷ Nutzungsmonate</small></label><input type="number" inputmode="decimal" id="werkzeug" value="0" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Verbrauchsmaterial<small>Schleifmittel, Dichtungen, Kleinteile</small></label><input type="number" inputmode="decimal" id="material" value="0" oninput="calc()"><span class="unit">€</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Sonstiges</div>
+    <div class="row"><label>Unterkunft / Wohnung</label><input type="number" inputmode="decimal" id="wohn" value="0" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Telefon / IT</label><input type="number" inputmode="decimal" id="tel" value="0" oninput="calc()"><span class="unit">€</span></div>
+    <div class="row"><label>Sonstige Kosten</label><input type="number" inputmode="decimal" id="sonst" value="0" oninput="calc()"><span class="unit">€</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Arbeitszeit</div>
+    <div class="row"><label>Arbeitstage / Monat</label><input type="number" inputmode="decimal" id="tage" value="21" oninput="calc()"><span class="unit">Tage</span></div>
+    <div class="row"><label>Stunden / Tag</label><input type="number" inputmode="decimal" id="std" value="8" oninput="calc()"><span class="unit">h</span></div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="klabel">Gesamt-EK / Monat</div><div class="kval" id="ek_monat">—</div></div>
+    <div class="kpi"><div class="klabel">EK / Stunde</div><div class="kval" id="ek_std">—</div><div class="ksub">was 1h wirklich kostet</div></div>
+  </div>
+
+  <div class="vk-card">
+    <label>VK / Stunde</label>
+    <input type="number" inputmode="decimal" id="vk" value="" placeholder="z.B. 65" oninput="calc()">
+    <span class="vk-unit">€</span>
+  </div>
+
+  <div class="marge-card">
+    <div class="marge-grid">
+      <div class="marge-big" id="card_eur"><div class="mlabel">Marge €/h</div><div class="mnum" id="marge_eur">—</div></div>
+      <div class="marge-big" id="card_pct"><div class="mlabel">Marge %</div><div class="mnum" id="marge_pct">—</div></div>
+    </div>
+    <div class="bar-bg"><div class="bar-fill" id="mbar" style="width:0%"></div></div>
+    <div class="bar-labels"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+  </div>
+
+  <div class="be-card">
+    <div class="be-title">Break-even</div>
+    <div class="be-row hl"><span>Mindest-Stundensatz</span><span id="be_rate">—</span></div>
+    <div class="be-row"><span>Break-even Stunden / Monat</span><span id="be_h">—</span></div>
+    <div class="be-row"><span>Break-even Tage / Monat</span><span id="be_t">—</span></div>
+    <div class="be-row"><span>Deckungsbeitrag / Monat</span><span id="db">—</span></div>
+    <div class="be-row"><span>Hochrechnung / Jahr</span><span id="jahr">—</span></div>
+  </div>
+
+  <footer>Alle Werte werden lokal berechnet · keine Internetverbindung nötig</footer>
+</div>
+<script>
+function g(id){ return parseFloat(document.getElementById(id).value)||0; }
+function eur(v){ return v.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
+function calc(){
+  const ek = g('brutto')+g('sozial')+g('verpfl')+g('kleidung')
+            +g('fzg')+g('kraft')+g('maut')
+            +g('werkzeug')+g('material')
+            +g('wohn')+g('tel')+g('sonst');
+  const tage=g('tage')||21, std=g('std')||8, totalH=tage*std;
+  const ekH=totalH>0?ek/totalH:0, vk=g('vk');
+  const margeE=vk-ekH, margeP=vk>0?(margeE/vk)*100:0;
+  const db=(vk*totalH)-ek;
+  document.getElementById('ek_monat').textContent=eur(ek);
+  document.getElementById('ek_std').textContent=eur(ekH);
+  document.getElementById('be_rate').textContent=eur(ekH);
+  if(vk>0){
+    document.getElementById('marge_eur').textContent=eur(margeE);
+    document.getElementById('marge_pct').textContent=margeP.toFixed(1)+'%';
+    document.getElementById('card_eur').className='marge-big '+(margeE>=0?'green':'red');
+    document.getElementById('card_pct').className='marge-big '+(margeP>=20?'green':margeP>=0?'':'red');
+    const bar=document.getElementById('mbar');
+    bar.style.width=Math.max(0,Math.min(100,margeP))+'%';
+    bar.className='bar-fill'+(margeP<0?' danger':margeP<20?' warn':'');
+    const beH=ek/vk;
+    document.getElementById('be_h').textContent=beH.toFixed(1)+' h';
+    document.getElementById('be_t').textContent=(beH/std).toFixed(1)+' Tage';
+    document.getElementById('db').textContent=eur(db);
+    document.getElementById('jahr').textContent=eur(db*12);
+  } else {
+    ['marge_eur','marge_pct','be_h','be_t','db','jahr'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('card_eur').className='marge-big';
+    document.getElementById('card_pct').className='marge-big';
+    document.getElementById('mbar').style.width='0%';
+  }
+}
+calc();
+</script>
+</body>
+</html>
