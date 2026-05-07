@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monteur Kalkulation – Truck Doctor</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#e0e0e0;font-family:'DM Sans',sans-serif;font-size:13px}
+.app{max-width:460px;margin:0 auto;padding:10px 10px 60px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#fff;margin-bottom:0}
+.tagline{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.blk{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:5px;padding:10px 11px;margin-bottom:8px}
+.blk-head{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:#888;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+.blk-tag{font-family:'DM Sans',sans-serif;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.g2:last-child,.g3:last-child{margin-bottom:0}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px}
+label{display:block;font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px}
+input[type=number],input[type=text]{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:3px;color:#e0e0e0;font-size:13px;padding:5px 7px;font-family:'DM Sans',sans-serif}
+input:focus{outline:none;border-color:#ff6a00}
+input[readonly]{color:#ff6a00;cursor:default}
+.krow{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e1e1e}
+.krow:last-child{border-bottom:none}
+.krow.sep{border-top:1px solid #2a2a2a;margin-top:4px;padding-top:6px;border-bottom:none}
+.kl{font-size:11px;color:#555}
+.kv{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.5px}
+.w{color:#bbb}.o{color:#ff6a00}.g{color:#3fb950}.r{color:#f44336}.b{color:#58a6ff}
+.zy-arb{background:#0a150a;border:1px solid #1a3a1a;border-radius:4px;padding:8px 10px;margin-bottom:6px}
+.zy-heim{background:#150a00;border:1px solid #3a2000;border-radius:4px;padding:8px 10px;margin-bottom:6px}
+.zy-title{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:7px}
+.zy-title.arb{color:#2a6a2a}
+.zy-title.heim{color:#6a3a00}
+.result{border-radius:6px;padding:16px 14px;margin-bottom:8px}
+.result.ok{background:#0a160a;border:2px solid #1a5a1a}
+.result.warn{background:#160e00;border:2px solid #5a3a00}
+.result.bad{background:#160000;border:2px solid #5a0000}
+.res-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#444;margin-bottom:8px}
+.res-big{font-family:'Bebas Neue',sans-serif;font-size:62px;line-height:1;letter-spacing:2px}
+.res-big.ok{color:#3fb950}.res-big.warn{color:#ff6a00}.res-big.bad{color:#f44336}
+.res-unit{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#444;margin-left:6px}
+.res-sub{font-size:11px;color:#555;margin-top:8px;line-height:1.8}
+.res-sub strong{color:#888}
+.db-section{margin-top:6px}
+.db-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.db-label{font-size:10px;color:#555;width:70px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px}
+.db-bar-wrap{flex:1;background:#222;border-radius:2px;height:16px;overflow:hidden}
+.db-bar{height:100%;border-radius:2px;transition:width 0.4s}
+.db-val{font-family:'Bebas Neue',sans-serif;font-size:13px;width:90px;text-align:right;flex-shrink:0}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;color:#ff6a00;padding:7px 6px;text-align:right;border-bottom:2px solid #ff6a00;background:#222}
+.tbl th:first-child{text-align:left}
+.tbl td{padding:7px 6px;text-align:right;border-bottom:1px solid #2a2a2a;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.5px;color:#ddd}
+.tbl td:first-child{text-align:left;font-family:'DM Sans',sans-serif;font-size:12px;color:#bbb;font-weight:500}
+.tbl tr{background:#1e1e1e}
+.tbl tr:nth-child(even){background:#252525}
+.tbl tr.be-row td{background:#2e1800 !important;border-top:2px solid #ff6a00;border-bottom:2px solid #ff6a00}
+.tbl tr.be-row td:first-child{color:#ff6a00;font-weight:700}
+.tbl tr.plus-row td:first-child{color:#3fb950}
+.tbl tr.minus-row td:first-child{color:#f44336}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>MONTEUR KALKULATION</h1>
+  <div class="tagline" id="tagline">2 Mitarbeiter · 1 Bahn · Rotation 2/1</div>
+
+  <!-- STAMMDATEN -->
+  <div class="blk">
+    <div class="blk-head">Stammdaten <span class="blk-tag">12 AW = 1 Stunde</span></div>
+    <div class="g3">
+      <div><label>AW-Preis (€)</label><input type="number" id="awP" value="7.50" step="0.5" oninput="calc()"></div>
+      <div><label>Arbeitstage/Mo</label><input type="number" id="tage" value="22" oninput="calc()"></div>
+      <div><label>Stundensatz</label><input type="text" id="stunde" readonly></div>
+    </div>
+    <div class="g2">
+      <div><label>Monate arbeitend</label><input type="number" id="mA" value="2" oninput="calc()"></div>
+      <div><label>Monate zuhause</label><input type="number" id="mH" value="1" oninput="calc()"></div>
+    </div>
+  </div>
+
+  <!-- LOHN -->
+  <div class="blk">
+    <div class="blk-head">Lohn <span class="blk-tag">+ AG 21% · je Mitarbeiter</span></div>
+    <div class="g2">
+      <div><label>Gehalt arbeitend</label><input type="number" id="gA" value="2500" oninput="calc()"></div>
+      <div><label>Gehalt zuhause</label><input type="number" id="gH" value="2000" oninput="calc()"></div>
+    </div>
+    <div class="krow"><span class="kl">Kosten arbeitend + AG</span><span class="kv w" id="lArbM">–</span></div>
+    <div class="krow"><span class="kl">Kosten zuhause + AG</span><span class="kv o" id="lHeimM">–</span></div>
+    <div class="krow sep"><span class="kl">Zyklus 2 MA gesamt</span><span class="kv o" id="lZyklus2">–</span></div>
+  </div>
+
+  <!-- BAHN -->
+  <div class="blk">
+    <div class="blk-head">Bahn-Kosten <span class="blk-tag">läuft immer · auch zuhause</span></div>
+    <div class="g2">
+      <div><label>Miete / Pacht</label><input type="number" id="miete" value="0" oninput="calc()"></div>
+      <div><label>Strom / Monat</label><input type="number" id="strom" value="0" oninput="calc()"></div>
+    </div>
+    <div class="g2">
+      <div><label>Wasser / Monat</label><input type="number" id="wasser" value="0" oninput="calc()"></div>
+      <div><label>Werkzeug-Abschreib.</label><input type="number" id="werkz" value="0" oninput="calc()"></div>
+    </div>
+    <div class="g2">
+      <div><label>Sonstiges</label><input type="number" id="bSonst" value="0" oninput="calc()"></div>
+    </div>
+    <div class="krow sep"><span class="kl">Bahn gesamt / Monat</span><span class="kv o" id="bahnM">–</span></div>
+    <div class="krow"><span class="kl" id="bahnZyklusLabel">Bahn pro Zyklus (3 Monate)</span><span class="kv o" id="bahnZyklus">–</span></div>
+  </div>
+
+  <!-- VARIABLE -->
+  <div class="blk">
+    <div class="blk-head">Variable Kosten <span class="blk-tag">pro MA · nur arbeitend</span></div>
+    <div class="g2">
+      <div><label>Spesen / Tag / MA</label><input type="number" id="spesen" value="15" oninput="calc()"></div>
+      <div><label>Sonstiges / Tag / MA</label><input type="number" id="vSonst" value="0" oninput="calc()"></div>
+    </div>
+    <div class="krow sep"><span class="kl">Variable 2 MA / Monat</span><span class="kv w" id="varGes">–</span></div>
+  </div>
+
+  <!-- ZYKLUS -->
+  <div class="blk">
+    <div class="blk-head"><span id="zyklusHead">Kosten pro Zyklus (3 Monate)</span></div>
+    <div class="zy-arb">
+      <div class="zy-title arb" id="arbTitle">2 × Monat arbeitend</div>
+      <div class="krow"><span class="kl">Lohn 2 MA</span><span class="kv w" id="zyLohnArb">–</span></div>
+      <div class="krow"><span class="kl">Bahn</span><span class="kv w" id="zyBahnArb">–</span></div>
+      <div class="krow"><span class="kl">Variable 2 MA</span><span class="kv w" id="zyVarArb">–</span></div>
+    </div>
+    <div class="zy-heim">
+      <div class="zy-title heim" id="heimTitle">1 × Monat zuhause — läuft trotzdem!</div>
+      <div class="krow"><span class="kl">Lohn 2 MA (zuhause)</span><span class="kv o" id="zyLohnHeim">–</span></div>
+      <div class="krow"><span class="kl">Bahn läuft weiter</span><span class="kv o" id="zyBahnHeim">–</span></div>
+    </div>
+    <div class="krow sep"><span class="kl" style="color:#bbb;font-weight:600">GESAMT Zyklus</span><span class="kv o" style="font-size:16px" id="kostenZyklus">–</span></div>
+    <div class="krow"><span class="kl" style="color:#bbb;font-weight:600">Pro Arbeitsmonat zu decken</span><span class="kv o" style="font-size:16px" id="kostenProM">–</span></div>
+  </div>
+
+  <!-- BREAK-EVEN -->
+  <div class="result" id="resultCard">
+    <div class="res-label">Break-Even — beide Monteure zusammen</div>
+    <div>
+      <span class="res-big" id="beAWBig">–</span>
+      <span class="res-unit">AW / TAG</span>
+    </div>
+    <div class="res-sub" id="beSub">–</div>
+  </div>
+
+  <!-- DB BALKEN -->
+  <div class="blk">
+    <div class="blk-head">Dein DB / Monat</div>
+    <div class="db-section" id="dbBars"></div>
+  </div>
+
+  <!-- TABELLE -->
+  <div class="blk">
+    <div class="blk-head">Alle Szenarien <span class="blk-tag">pro MA gleiche Stunden</span></div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Std/MA</th>
+          <th>AW ges.</th>
+          <th>Umsatz/Mo</th>
+          <th>DB/Mo</th>
+          <th>DB/Zyklus</th>
+        </tr>
+      </thead>
+      <tbody id="tblBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+var AG = 1.21;
+var AW_H = 12;
+var anzMA = 2;
+
+function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function fmt(val, dez) {
+  if (!isFinite(val)) return '–';
+  dez = dez || 0;
+  return val.toLocaleString('de-DE', {minimumFractionDigits: dez, maximumFractionDigits: dez}) + ' €';
+}
+function set(id, val) { document.getElementById(id).innerHTML = val; }
+
+function calc() {
+  var awP    = v('awP');
+  var tage   = v('tage');
+  var mA     = v('mA') || 2;
+  var mH     = v('mH') || 1;
+  var gA     = v('gA');
+  var gH     = v('gH');
+  var miete  = v('miete');
+  var strom  = v('strom');
+  var wasser = v('wasser');
+  var werkz  = v('werkz');
+  var bSonst = v('bSonst');
+  var spesen = v('spesen');
+  var vSonst = v('vSonst');
+
+  var stunde    = awP * AW_H;
+  document.getElementById('stunde').value = stunde.toFixed(2) + ' €';
+  document.getElementById('tagline').textContent = '2 Mitarbeiter · 1 Bahn · Rotation ' + mA + '/' + mH;
+
+  var lArbM  = gA * AG;
+  var lHeimM = gH * AG;
+  var lZyklusMA   = lArbM * mA + lHeimM * mH;
+  var lZyklus2MA  = lZyklusMA * anzMA;
+
+  var bahnM      = miete + strom + wasser + werkz + bSonst;
+  var zyklusMo   = mA + mH;
+  var bahnZyklus = bahnM * zyklusMo;
+
+  var varTagGes  = spesen + vSonst;
+  var varMonatMA = varTagGes * tage;
+  var varMonat2  = varMonatMA * anzMA;
+  var varZyklus2 = varMonat2 * mA;
+
+  var kostenZyklus  = lZyklus2MA + bahnZyklus + varZyklus2;
+  var kostenProArbM = kostenZyklus / mA;
+
+  // Break-Even
+  var beAWTag   = kostenProArbM / (awP * tage);
+  var beHTag    = beAWTag / AW_H;
+  var beProMA   = beAWTag / anzMA;
+  var beHProMA  = beProMA / AW_H;
+
+  // SET UI
+  set('lArbM',   fmt(lArbM) + '/Mo');
+  set('lHeimM',  fmt(lHeimM) + '/Mo');
+  set('lZyklus2', fmt(lZyklus2MA));
+  set('bahnM',   fmt(bahnM) + '/Mo');
+  document.getElementById('bahnZyklusLabel').textContent = 'Bahn pro Zyklus (' + zyklusMo + ' Monate)';
+  set('bahnZyklus', fmt(bahnZyklus));
+  set('varGes',  fmt(varMonat2) + '/Mo');
+
+  document.getElementById('zyklusHead').textContent = 'Kosten pro Zyklus (' + zyklusMo + ' Monate)';
+  document.getElementById('arbTitle').textContent   = mA + ' × Monat arbeitend';
+  document.getElementById('heimTitle').textContent  = mH + ' × Monat zuhause — läuft trotzdem!';
+
+  set('zyLohnArb',  fmt(lArbM * anzMA * mA));
+  set('zyBahnArb',  fmt(bahnM * mA));
+  set('zyVarArb',   fmt(varMonat2 * mA));
+  set('zyLohnHeim', fmt(lHeimM * anzMA * mH));
+  set('zyBahnHeim', fmt(bahnM * mH));
+  set('kostenZyklus', fmt(kostenZyklus));
+  set('kostenProM',   fmt(kostenProArbM));
+
+  // RESULT CARD
+  var status = beHProMA <= 7 ? 'ok' : beHProMA <= 9 ? 'warn' : 'bad';
+  var card = document.getElementById('resultCard');
+  card.className = 'result ' + status;
+  var bigEl = document.getElementById('beAWBig');
+  bigEl.className = 'res-big ' + status;
+  bigEl.textContent = beAWTag.toLocaleString('de-DE', {minimumFractionDigits:0, maximumFractionDigits:0});
+
+  var statusText = status === 'ok' ? '✓ Gut erreichbar — unter 7h pro Monteur'
+    : status === 'warn' ? '⚠ Grenzwertig — prüfe ob Kosten senkbar'
+    : '✗ Kritisch — Kosten zu hoch für 12h/Tag Limit';
+
+  set('beSub',
+    '<strong>' + beHTag.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1}) + 'h gesamt / Tag</strong> = je Monteur '
+    + '<strong style="color:' + (status==='ok'?'#3fb950':status==='warn'?'#ff6a00':'#f44336') + '">'
+    + beHProMA.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1}) + 'h / Tag = '
+    + beProMA.toLocaleString('de-DE',{minimumFractionDigits:0,maximumFractionDigits:0}) + ' AW</strong><br>'
+    + 'Umsatz der nötig ist: <strong>' + fmt(kostenProArbM) + '/Monat</strong><br>'
+    + statusText
+  );
+
+  // DB BALKEN
+  var szenarien = [
+    {label:'6h/MA',  h:6},
+    {label:'8h/MA',  h:8},
+    {label:'10h/MA', h:10},
+    {label:'12h/MA', h:12}
+  ];
+  var dbWerte = szenarien.map(function(sc) {
+    return sc.h * AW_H * anzMA * awP * tage - kostenProArbM;
+  });
+  var maxAbs = Math.max.apply(null, dbWerte.map(Math.abs));
+  if (maxAbs === 0) maxAbs = 1;
+
+  var barsHtml = '';
+  for (var i = 0; i < szenarien.length; i++) {
+    var db  = dbWerte[i];
+    var pct = Math.abs(db) / maxAbs * 100;
+    var clr = db >= 0 ? '#3fb950' : '#f44336';
+    barsHtml += '<div class="db-row">'
+      + '<div class="db-label">' + szenarien[i].label + '</div>'
+      + '<div class="db-bar-wrap"><div class="db-bar" style="width:' + pct + '%;background:' + clr + ';opacity:0.75"></div></div>'
+      + '<div class="db-val" style="color:' + clr + '">' + (db>=0?'+':'') + fmt(db) + '</div>'
+      + '</div>';
+  }
+  document.getElementById('dbBars').innerHTML = barsHtml;
+
+  // TABELLE
+  var beRowH = Math.ceil(beHProMA);
+  var html = '';
+  for (var h = 4; h <= 12; h++) {
+    var awTag2   = h * AW_H * anzMA;
+    var umM      = awTag2 * awP * tage;
+    var dbM      = umM - kostenProArbM;
+    var dbZyklus = umM * mA - kostenZyklus;
+    var isBE     = h === beRowH;
+    var rowCls   = isBE ? 'be-row' : dbM > 0 ? 'plus-row' : 'minus-row';
+    var dbCol    = dbM >= 0 ? '#3fb950' : '#f44336';
+    var dzCol    = dbZyklus >= 0 ? '#3fb950' : '#f44336';
+    html += '<tr class="' + rowCls + '">'
+      + '<td>' + h + 'h' + (isBE ? ' ◀' : '') + '</td>'
+      + '<td>' + awTag2 + '</td>'
+      + '<td>' + fmt(umM) + '</td>'
+      + '<td style="color:' + dbCol + '">' + (dbM>=0?'+':'') + fmt(dbM) + '</td>'
+      + '<td style="color:' + dzCol + '">' + (dbZyklus>=0?'+':'') + fmt(dbZyklus) + '</td>'
+      + '</tr>';
+  }
+  document.getElementById('tblBody').innerHTML = html;
+}
+
+calc();
+</script>
+</body>
+</html>
