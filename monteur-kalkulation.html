@@ -9,311 +9,452 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0a0a0a;color:#e0e0e0;font-family:'DM Sans',sans-serif;font-size:13px}
 .app{max-width:460px;margin:0 auto;padding:10px 10px 60px}
-h1{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#fff;margin-bottom:0}
-.tagline{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff}
+.tagline{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;margin-top:2px}
 .blk{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:5px;padding:10px 11px;margin-bottom:8px}
-.blk-head{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:#888;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
-.blk-tag{font-family:'DM Sans',sans-serif;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px}
+.blk-head{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:#ff6a00;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+.blk-tag{font-family:'DM Sans',sans-serif;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:1px;font-weight:500}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
 .g2:last-child,.g3:last-child{margin-bottom:0}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:6px}
-label{display:block;font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px}
+label{display:block;font-size:9px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px}
+.hint{font-size:9px;color:#333;margin-top:2px}
 input[type=number],input[type=text]{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:3px;color:#e0e0e0;font-size:13px;padding:5px 7px;font-family:'DM Sans',sans-serif}
 input:focus{outline:none;border-color:#ff6a00}
-input[readonly]{color:#ff6a00;cursor:default}
-.krow{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #1e1e1e}
+input[readonly]{color:#ff6a00;cursor:default;background:#0f0f0f}
+.krow{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #1e1e1e}
 .krow:last-child{border-bottom:none}
-.krow.sep{border-top:1px solid #2a2a2a;margin-top:4px;padding-top:6px;border-bottom:none}
-.kl{font-size:11px;color:#555}
-.kv{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.5px}
-.w{color:#bbb}.o{color:#ff6a00}.g{color:#3fb950}.r{color:#f44336}.b{color:#58a6ff}
-.zy-arb{background:#0a150a;border:1px solid #1a3a1a;border-radius:4px;padding:8px 10px;margin-bottom:6px}
-.zy-heim{background:#150a00;border:1px solid #3a2000;border-radius:4px;padding:8px 10px;margin-bottom:6px}
-.zy-title{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:7px}
-.zy-title.arb{color:#2a6a2a}
-.zy-title.heim{color:#6a3a00}
-.result{border-radius:6px;padding:16px 14px;margin-bottom:8px}
-.result.ok{background:#0a160a;border:2px solid #1a5a1a}
-.result.warn{background:#160e00;border:2px solid #5a3a00}
-.result.bad{background:#160000;border:2px solid #5a0000}
-.res-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#444;margin-bottom:8px}
-.res-big{font-family:'Bebas Neue',sans-serif;font-size:62px;line-height:1;letter-spacing:2px}
-.res-big.ok{color:#3fb950}.res-big.warn{color:#ff6a00}.res-big.bad{color:#f44336}
-.res-unit{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#444;margin-left:6px}
-.res-sub{font-size:11px;color:#555;margin-top:8px;line-height:1.8}
-.res-sub strong{color:#888}
-.db-section{margin-top:6px}
-.db-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.db-label{font-size:10px;color:#555;width:70px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px}
-.db-bar-wrap{flex:1;background:#222;border-radius:2px;height:16px;overflow:hidden}
-.db-bar{height:100%;border-radius:2px;transition:width 0.4s}
+.krow.sep{border-top:1px solid #2a2a2a;margin-top:5px;padding-top:7px;border-bottom:none}
+.kl{font-size:11px;color:#555;line-height:1.4}
+.kv{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.5px;white-space:nowrap;margin-left:8px}
+.w{color:#ccc}.o{color:#ff6a00}.g{color:#3fb950}.r{color:#f44336}.dim{color:#444}
+
+/* 3-MONATS RHYTHMUS */
+.rhythmus{margin-bottom:8px}
+.rhy-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#ff6a00;margin-bottom:8px}
+.monat-cards{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.monat-card{flex:0 0 calc(33.333% - 4px);background:#111;border-radius:5px;padding:8px 9px;border:1px solid #2a2a2a;min-width:120px}
+.monat-card.arb{border-color:#1a3a1a}
+.monat-card.heim{border-color:#3a2000}
+.m-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#444;line-height:1}
+.m-status{font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:6px}
+.m-status.arb{color:#2a6a2a}
+.m-status.heim{color:#6a3a00}
+.m-row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #161616}
+.m-row:last-child{border-bottom:none}
+.m-label{font-size:9px;color:#444}
+.m-val{font-family:'Bebas Neue',sans-serif;font-size:11px}
+.m-total{margin-top:5px;padding-top:5px;border-top:1px solid #2a2a2a;display:flex;justify-content:space-between}
+.m-total-label{font-size:9px;color:#666;font-weight:600}
+.m-total-val{font-family:'Bebas Neue',sans-serif;font-size:13px}
+
+/* BREAK-EVEN RESULT */
+.be-card{border-radius:6px;padding:14px;margin-bottom:8px}
+.be-card.rot   {background:#160000;border:2px solid #5a0000}
+.be-card.orange{background:#160a00;border:2px solid #5a2a00}
+.be-card.gruen {background:#001600;border:2px solid #005a00}
+.be-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:#444;margin-bottom:6px}
+.be-big{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;letter-spacing:2px}
+.be-big.rot   {color:#f44336}
+.be-big.orange{color:#ff6a00}
+.be-big.gruen {color:#3fb950}
+.be-unit{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#444;margin-left:4px}
+.be-detail{font-size:11px;color:#555;margin-top:8px;line-height:1.9}
+.be-detail strong{color:#888}
+
+/* AMPEL HINWEIS */
+.ampel{display:flex;gap:6px;margin-bottom:8px}
+.amp{flex:1;border-radius:4px;padding:6px 8px;text-align:center}
+.amp.r{background:#1a0000;border:1px solid #3a0000}
+.amp.o{background:#1a0a00;border:1px solid #3a2000}
+.amp.g{background:#001a00;border:1px solid #003a00}
+.amp-dot{width:10px;height:10px;border-radius:50%;margin:0 auto 4px}
+.amp-dot.r{background:#f44336}
+.amp-dot.o{background:#ff6a00}
+.amp-dot.g{background:#3fb950}
+.amp-text{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.5px}
+
+/* DB BALKEN */
+.db-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.db-label{font-size:10px;color:#666;width:80px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.3px;line-height:1.3}
+.db-bar-wrap{flex:1;background:#222;border-radius:2px;height:18px;overflow:hidden;position:relative}
+.db-bar{height:100%;border-radius:2px;transition:width 0.3s}
 .db-val{font-family:'Bebas Neue',sans-serif;font-size:13px;width:90px;text-align:right;flex-shrink:0}
-/* TABLE */
+
+/* TABELLE */
 .tbl{width:100%;border-collapse:collapse}
-.tbl th{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;color:#ff6a00;padding:7px 6px;text-align:right;border-bottom:2px solid #ff6a00;background:#222}
+.tbl thead tr{background:#222}
+.tbl th{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:1px;color:#ff6a00;padding:7px 6px;text-align:right;border-bottom:2px solid #ff6a00}
 .tbl th:first-child{text-align:left}
-.tbl td{padding:7px 6px;text-align:right;border-bottom:1px solid #2a2a2a;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.5px;color:#ddd}
-.tbl td:first-child{text-align:left;font-family:'DM Sans',sans-serif;font-size:12px;color:#bbb;font-weight:500}
-.tbl tr{background:#1e1e1e}
-.tbl tr:nth-child(even){background:#252525}
-.tbl tr.be-row td{background:#2e1800 !important;border-top:2px solid #ff6a00;border-bottom:2px solid #ff6a00}
-.tbl tr.be-row td:first-child{color:#ff6a00;font-weight:700}
-.tbl tr.plus-row td:first-child{color:#3fb950}
-.tbl tr.minus-row td:first-child{color:#f44336}
+.tbl td{padding:7px 6px;text-align:right;border-bottom:1px solid #2a2a2a;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.3px;color:#ddd}
+.tbl td:first-child{text-align:left;font-family:'DM Sans',sans-serif;font-size:11px;color:#bbb}
+.tbl tr.even{background:#1e1e1e}
+.tbl tr.odd{background:#222}
+.tbl tr.be-row td{background:#2a1200 !important;border-top:2px solid #ff6a00;border-bottom:2px solid #ff6a00}
+.tbl tr.be-row td:first-child{color:#ff6a00;font-weight:600;font-size:12px}
+.amp-cell{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:4px}
+
+/* INFO BOX */
+.info-box{background:#111;border:1px solid #2a2a2a;border-left:3px solid #ff6a00;border-radius:3px;padding:9px 11px;margin-bottom:8px;font-size:11px;color:#555;line-height:1.7}
+.info-box strong{color:#888}
 </style>
 </head>
 <body>
 <div class="app">
   <h1>MONTEUR KALKULATION</h1>
-  <div class="tagline" id="tagline">2 Mitarbeiter · 1 Bahn · Rotation 2/1</div>
+  <div class="tagline">1 Monteur · Truck Doctor GmbH</div>
+
+  <!-- INFO -->
+  <div class="info-box">
+    <strong>Wichtig:</strong> Diese Kalkulation zeigt nur ob es sich rechnet — aber nur wenn die AW auch täglich <strong>fakturiert und verkauft</strong> werden. Ein AW der gemacht aber nicht abgerechnet wird, zählt nicht!
+  </div>
 
   <!-- STAMMDATEN -->
   <div class="blk">
-    <div class="blk-head">Stammdaten <span class="blk-tag">12 AW = 1 Stunde</span></div>
+    <div class="blk-head">Stammdaten <span class="blk-tag">Grundwerte</span></div>
     <div class="g3">
-      <div><label>AW-Preis (€)</label><input type="number" id="awP" value="7.50" step="0.5" oninput="calc()"></div>
-      <div><label>Arbeitstage/Mo</label><input type="number" id="tage" value="22" oninput="calc()"></div>
-      <div><label>Stundensatz</label><input type="text" id="stunde" readonly></div>
+      <div>
+        <label>AW-Preis (€/AW)</label>
+        <input type="number" id="awP" value="7.50" step="0.5" oninput="calc()">
+        <div class="hint">12 AW = 1 Stunde</div>
+      </div>
+      <div>
+        <label>Stundensatz (€/h)</label>
+        <input type="text" id="stunde" readonly>
+        <div class="hint">AW-Preis × 12</div>
+      </div>
+      <div>
+        <label>Arbeitstage/Monat</label>
+        <input type="number" id="tage" value="22" oninput="calc()">
+        <div class="hint">z.B. 22 Tage</div>
+      </div>
     </div>
     <div class="g2">
-      <div><label>Monate arbeitend</label><input type="number" id="mA" value="2" oninput="calc()"></div>
-      <div><label>Monate zuhause</label><input type="number" id="mH" value="1" oninput="calc()"></div>
+      <div>
+        <label>Monate arbeitend</label>
+        <input type="number" id="mA" value="2" oninput="calc()">
+        <div class="hint">z.B. 2 Monate</div>
+      </div>
+      <div>
+        <label>Monate zuhause</label>
+        <input type="number" id="mH" value="1" oninput="calc()">
+        <div class="hint">z.B. 1 Monat</div>
+      </div>
     </div>
   </div>
 
   <!-- LOHN -->
   <div class="blk">
-    <div class="blk-head">Lohn <span class="blk-tag">+ AG 21% · je Mitarbeiter</span></div>
+    <div class="blk-head">Lohn <span class="blk-tag">AG-Kosten +21% automatisch</span></div>
     <div class="g2">
-      <div><label>Gehalt arbeitend</label><input type="number" id="gA" value="2500" oninput="calc()"></div>
-      <div><label>Gehalt zuhause</label><input type="number" id="gH" value="2000" oninput="calc()"></div>
+      <div>
+        <label>Gehalt wenn er arbeitet (€)</label>
+        <input type="number" id="gA" value="2500" oninput="calc()">
+      </div>
+      <div>
+        <label>Gehalt wenn er zuhause ist (€)</label>
+        <input type="number" id="gH" value="2000" oninput="calc()">
+      </div>
     </div>
-    <div class="krow"><span class="kl">Kosten arbeitend + AG</span><span class="kv w" id="lArbM">–</span></div>
-    <div class="krow"><span class="kl">Kosten zuhause + AG</span><span class="kv o" id="lHeimM">–</span></div>
-    <div class="krow sep"><span class="kl">Zyklus 2 MA gesamt</span><span class="kv o" id="lZyklus2">–</span></div>
+    <div class="krow">
+      <span class="kl">Was er kostet wenn er arbeitet<br><span style="color:#333;font-size:10px">Gehalt + AG 21%</span></span>
+      <span class="kv w" id="lArbM">–</span>
+    </div>
+    <div class="krow">
+      <span class="kl">Was er kostet wenn er zuhause ist<br><span style="color:#ff6a00;font-size:10px">⚠ Läuft auch zuhause!</span></span>
+      <span class="kv o" id="lHeimM">–</span>
+    </div>
   </div>
 
-  <!-- BAHN -->
+  <!-- BAHN-KOSTEN -->
   <div class="blk">
-    <div class="blk-head">Bahn-Kosten <span class="blk-tag">läuft immer · auch zuhause</span></div>
+    <div class="blk-head">Bahn-Kosten <span class="blk-tag">laufen immer · auch wenn er zuhause ist</span></div>
     <div class="g2">
-      <div><label>Miete / Pacht</label><input type="number" id="miete" value="0" oninput="calc()"></div>
-      <div><label>Strom / Monat</label><input type="number" id="strom" value="0" oninput="calc()"></div>
+      <div><label>Miete / Pacht (€/Monat)</label><input type="number" id="miete" value="0" oninput="calc()"></div>
+      <div><label>Strom (€/Monat)</label><input type="number" id="strom" value="0" oninput="calc()"></div>
     </div>
     <div class="g2">
-      <div><label>Wasser / Monat</label><input type="number" id="wasser" value="0" oninput="calc()"></div>
-      <div><label>Werkzeug-Abschreib.</label><input type="number" id="werkz" value="0" oninput="calc()"></div>
+      <div><label>Wasser (€/Monat)</label><input type="number" id="wasser" value="0" oninput="calc()"></div>
+      <div><label>Werkzeug-Abschreib. (€/Monat)</label><input type="number" id="werkz" value="0" oninput="calc()"></div>
     </div>
     <div class="g2">
-      <div><label>Sonstiges</label><input type="number" id="bSonst" value="0" oninput="calc()"></div>
+      <div><label>Sonstiges (€/Monat)</label><input type="number" id="bSonst" value="0" oninput="calc()"></div>
     </div>
-    <div class="krow sep"><span class="kl">Bahn gesamt / Monat</span><span class="kv o" id="bahnM">–</span></div>
-    <div class="krow"><span class="kl" id="bahnZyklusLabel">Bahn pro Zyklus (3 Monate)</span><span class="kv o" id="bahnZyklus">–</span></div>
+    <div class="krow sep">
+      <span class="kl">Bahn gesamt / Monat</span>
+      <span class="kv o" id="bahnM">–</span>
+    </div>
   </div>
 
   <!-- VARIABLE -->
   <div class="blk">
-    <div class="blk-head">Variable Kosten <span class="blk-tag">pro MA · nur arbeitend</span></div>
+    <div class="blk-head">Variable Kosten <span class="blk-tag">nur wenn er arbeitet</span></div>
     <div class="g2">
-      <div><label>Spesen / Tag / MA</label><input type="number" id="spesen" value="15" oninput="calc()"></div>
-      <div><label>Sonstiges / Tag / MA</label><input type="number" id="vSonst" value="0" oninput="calc()"></div>
+      <div>
+        <label>Spesen / Tag (€)</label>
+        <input type="number" id="spesen" value="15" oninput="calc()">
+        <div class="hint">Verpflegung, etc.</div>
+      </div>
+      <div>
+        <label>Kraftstoff / Tag (€)</label>
+        <input type="number" id="kraftstoff" value="0" oninput="calc()">
+      </div>
     </div>
-    <div class="krow sep"><span class="kl">Variable 2 MA / Monat</span><span class="kv w" id="varGes">–</span></div>
+    <div class="g2">
+      <div><label>Sonstiges / Tag (€)</label><input type="number" id="vSonst" value="0" oninput="calc()"></div>
+    </div>
+    <div class="krow sep">
+      <span class="kl">Variable Kosten / Monat</span>
+      <span class="kv w" id="varMonat">–</span>
+    </div>
+    <div class="krow">
+      <span class="kl">Variable Kosten / Tag</span>
+      <span class="kv dim" id="varTag">–</span>
+    </div>
   </div>
 
-  <!-- ZYKLUS -->
+  <!-- 3-MONATS RHYTHMUS -->
   <div class="blk">
-    <div class="blk-head"><span id="zyklusHead">Kosten pro Zyklus (3 Monate)</span></div>
-    <div class="zy-arb">
-      <div class="zy-title arb" id="arbTitle">2 × Monat arbeitend</div>
-      <div class="krow"><span class="kl">Lohn 2 MA</span><span class="kv w" id="zyLohnArb">–</span></div>
-      <div class="krow"><span class="kl">Bahn</span><span class="kv w" id="zyBahnArb">–</span></div>
-      <div class="krow"><span class="kl">Variable 2 MA</span><span class="kv w" id="zyVarArb">–</span></div>
+    <div class="blk-head">Der <span id="zyklusTitle" style="color:#fff">3</span>-Monats-Rhythmus <span class="blk-tag">was läuft wann</span></div>
+    <div class="monat-cards" id="monatCards"></div>
+    <div class="krow sep">
+      <span class="kl" style="color:#bbb;font-weight:600">Gesamt <span id="zyklusMoLabel">3</span> Monate</span>
+      <span class="kv o" style="font-size:16px" id="kostenZyklus">–</span>
     </div>
-    <div class="zy-heim">
-      <div class="zy-title heim" id="heimTitle">1 × Monat zuhause — läuft trotzdem!</div>
-      <div class="krow"><span class="kl">Lohn 2 MA (zuhause)</span><span class="kv o" id="zyLohnHeim">–</span></div>
-      <div class="krow"><span class="kl">Bahn läuft weiter</span><span class="kv o" id="zyBahnHeim">–</span></div>
+    <div class="krow">
+      <span class="kl" style="color:#bbb;font-weight:600">Was er pro Arbeitsmonat erwirtschaften muss<br><span style="color:#333;font-size:10px">(inkl. anteilige Zuhause-Kosten)</span></span>
+      <span class="kv o" style="font-size:16px" id="kostenProM">–</span>
     </div>
-    <div class="krow sep"><span class="kl" style="color:#bbb;font-weight:600">GESAMT Zyklus</span><span class="kv o" style="font-size:16px" id="kostenZyklus">–</span></div>
-    <div class="krow"><span class="kl" style="color:#bbb;font-weight:600">Pro Arbeitsmonat zu decken</span><span class="kv o" style="font-size:16px" id="kostenProM">–</span></div>
+    <div class="krow">
+      <span class="kl">Was er pro Arbeitstag erwirtschaften muss</span>
+      <span class="kv o" id="kostenProTag">–</span>
+    </div>
   </div>
 
   <!-- BREAK-EVEN -->
-  <div class="result" id="resultCard">
-    <div class="res-label">Break-Even — beide Monteure zusammen</div>
+  <div class="be-card" id="beCard">
+    <div class="be-label">Break-Even — ab hier bist du im DB</div>
     <div>
-      <span class="res-big" id="beAWBig">–</span>
-      <span class="res-unit">AW / TAG</span>
+      <span class="be-big" id="beBig">–</span>
+      <span class="be-unit">AW / TAG</span>
     </div>
-    <div class="res-sub" id="beSub">–</div>
+    <div class="be-detail" id="beDetail">–</div>
+  </div>
+
+  <!-- AMPEL LEGENDE -->
+  <div class="ampel">
+    <div class="amp r"><div class="amp-dot r"></div><div class="amp-text">Verlust</div></div>
+    <div class="amp o"><div class="amp-dot o"></div><div class="amp-text">Break-Even</div></div>
+    <div class="amp g"><div class="amp-dot g"></div><div class="amp-text">Gewinn</div></div>
   </div>
 
   <!-- DB BALKEN -->
   <div class="blk">
-    <div class="blk-head">Dein DB / Monat</div>
-    <div class="db-section" id="dbBars"></div>
+    <div class="blk-head">Dein DB / Monat je nach Stunden</div>
+    <div id="dbBars"></div>
   </div>
 
   <!-- TABELLE -->
   <div class="blk">
-    <div class="blk-head">Alle Szenarien <span class="blk-tag">pro MA gleiche Stunden</span></div>
+    <div class="blk-head">Tagesübersicht pro Stunde <span class="blk-tag">1 Monteur</span></div>
     <table class="tbl">
       <thead>
         <tr>
-          <th>Std/MA</th>
-          <th>AW ges.</th>
-          <th>Umsatz/Mo</th>
-          <th>DB/Mo</th>
+          <th>Std/Tag</th>
+          <th>AW/Tag</th>
+          <th>€/Tag</th>
+          <th>DB/Monat</th>
           <th>DB/Zyklus</th>
         </tr>
       </thead>
       <tbody id="tblBody"></tbody>
     </table>
+    <div style="font-size:10px;color:#333;margin-top:8px;line-height:1.6">
+      ◀ = Break-Even &nbsp;·&nbsp; 🔴 Verlust &nbsp;·&nbsp; 🟠 Grenzwertig &nbsp;·&nbsp; 🟢 Gewinn
+    </div>
   </div>
+
+  <!-- TAGES-CHECK HINWEIS -->
+  <div class="info-box" style="border-left-color:#3fb950">
+    <strong>Tägliche Kontrolle notwendig:</strong><br>
+    Ziel: <strong id="awZielTag">–</strong> fakturierte AW / Tag = Break-Even<br>
+    Nur verkaufte (fakturierte) AW zählen — nicht nur durchgeführte!
+  </div>
+
 </div>
 
 <script>
 var AG = 1.21;
 var AW_H = 12;
-var anzMA = 2;
 
-function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
-function fmt(val, dez) {
-  if (!isFinite(val)) return '–';
-  dez = dez || 0;
-  return val.toLocaleString('de-DE', {minimumFractionDigits: dez, maximumFractionDigits: dez}) + ' €';
+function v(id){ return parseFloat(document.getElementById(id).value) || 0; }
+function fmt(val, dez){
+  if(!isFinite(val)) return '–';
+  dez = dez === undefined ? 0 : dez;
+  return val.toLocaleString('de-DE',{minimumFractionDigits:dez,maximumFractionDigits:dez}) + ' €';
 }
-function set(id, val) { document.getElementById(id).innerHTML = val; }
+function fmtN(val, dez){
+  if(!isFinite(val)) return '–';
+  dez = dez === undefined ? 1 : dez;
+  return val.toLocaleString('de-DE',{minimumFractionDigits:dez,maximumFractionDigits:dez});
+}
+function set(id, val){ document.getElementById(id).innerHTML = val; }
 
-function calc() {
-  var awP    = v('awP');
-  var tage   = v('tage');
-  var mA     = v('mA') || 2;
-  var mH     = v('mH') || 1;
-  var gA     = v('gA');
-  var gH     = v('gH');
-  var miete  = v('miete');
-  var strom  = v('strom');
-  var wasser = v('wasser');
-  var werkz  = v('werkz');
-  var bSonst = v('bSonst');
-  var spesen = v('spesen');
-  var vSonst = v('vSonst');
+function ampelColor(dbM, beAWTag, currentAW) {
+  if (currentAW < beAWTag * 0.95) return 'rot';
+  if (currentAW < beAWTag * 1.1)  return 'orange';
+  return 'gruen';
+}
 
-  var stunde    = awP * AW_H;
+function calc(){
+  var awP   = v('awP');
+  var tage  = v('tage')  || 22;
+  var mA    = v('mA')    || 2;
+  var mH    = v('mH')    || 1;
+  var gA    = v('gA');
+  var gH    = v('gH');
+  var miete = v('miete');
+  var strom = v('strom');
+  var wasser= v('wasser');
+  var werkz = v('werkz');
+  var bSonst= v('bSonst');
+  var spesen= v('spesen');
+  var kraft = v('kraftstoff');
+  var vSonst= v('vSonst');
+
+  var zyklusMo = mA + mH;
+  var stunde   = awP * AW_H;
   document.getElementById('stunde').value = stunde.toFixed(2) + ' €';
-  document.getElementById('tagline').textContent = '2 Mitarbeiter · 1 Bahn · Rotation ' + mA + '/' + mH;
+  set('zyklusTitle', zyklusMo);
+  set('zyklusMoLabel', zyklusMo);
 
   var lArbM  = gA * AG;
   var lHeimM = gH * AG;
-  var lZyklusMA   = lArbM * mA + lHeimM * mH;
-  var lZyklus2MA  = lZyklusMA * anzMA;
+  var bahnM  = miete + strom + wasser + werkz + bSonst;
+  var varTagGes = spesen + kraft + vSonst;
+  var varMonat  = varTagGes * tage;
 
-  var bahnM      = miete + strom + wasser + werkz + bSonst;
-  var zyklusMo   = mA + mH;
-  var bahnZyklus = bahnM * zyklusMo;
+  // Kosten pro Monat (arbeitend)
+  var kostenArbM  = lArbM + bahnM + varMonat;
+  // Kosten pro Monat (zuhause)
+  var kostenHeimM = lHeimM + bahnM;
+  // Gesamtkosten Zyklus
+  var kostenZyklus = kostenArbM * mA + kostenHeimM * mH;
+  // Pro Arbeitsmonat
+  var kostenProM = kostenZyklus / mA;
+  var kostenProTag = kostenProM / tage;
 
-  var varTagGes  = spesen + vSonst;
-  var varMonatMA = varTagGes * tage;
-  var varMonat2  = varMonatMA * anzMA;
-  var varZyklus2 = varMonat2 * mA;
+  // Break-even
+  var beAWTag = kostenProTag / awP;
+  var beHTag  = beAWTag / AW_H;
+  var beRowH  = Math.ceil(beHTag);
 
-  var kostenZyklus  = lZyklus2MA + bahnZyklus + varZyklus2;
-  var kostenProArbM = kostenZyklus / mA;
-
-  // Break-Even
-  var beAWTag   = kostenProArbM / (awP * tage);
-  var beHTag    = beAWTag / AW_H;
-  var beProMA   = beAWTag / anzMA;
-  var beHProMA  = beProMA / AW_H;
-
-  // SET UI
-  set('lArbM',   fmt(lArbM) + '/Mo');
-  set('lHeimM',  fmt(lHeimM) + '/Mo');
-  set('lZyklus2', fmt(lZyklus2MA));
-  set('bahnM',   fmt(bahnM) + '/Mo');
-  document.getElementById('bahnZyklusLabel').textContent = 'Bahn pro Zyklus (' + zyklusMo + ' Monate)';
-  set('bahnZyklus', fmt(bahnZyklus));
-  set('varGes',  fmt(varMonat2) + '/Mo');
-
-  document.getElementById('zyklusHead').textContent = 'Kosten pro Zyklus (' + zyklusMo + ' Monate)';
-  document.getElementById('arbTitle').textContent   = mA + ' × Monat arbeitend';
-  document.getElementById('heimTitle').textContent  = mH + ' × Monat zuhause — läuft trotzdem!';
-
-  set('zyLohnArb',  fmt(lArbM * anzMA * mA));
-  set('zyBahnArb',  fmt(bahnM * mA));
-  set('zyVarArb',   fmt(varMonat2 * mA));
-  set('zyLohnHeim', fmt(lHeimM * anzMA * mH));
-  set('zyBahnHeim', fmt(bahnM * mH));
+  // UI updates
+  set('lArbM',   fmt(lArbM) + ' / Monat');
+  set('lHeimM',  fmt(lHeimM) + ' / Monat');
+  set('bahnM',   fmt(bahnM) + ' / Monat');
+  set('varMonat',fmt(varMonat) + ' / Monat');
+  set('varTag',  fmt(varTagGes) + ' / Tag');
   set('kostenZyklus', fmt(kostenZyklus));
-  set('kostenProM',   fmt(kostenProArbM));
+  set('kostenProM',   fmt(kostenProM) + ' / Monat');
+  set('kostenProTag', fmt(kostenProTag) + ' / Tag');
 
-  // RESULT CARD
-  var status = beHProMA <= 7 ? 'ok' : beHProMA <= 9 ? 'warn' : 'bad';
-  var card = document.getElementById('resultCard');
-  card.className = 'result ' + status;
-  var bigEl = document.getElementById('beAWBig');
-  bigEl.className = 'res-big ' + status;
-  bigEl.textContent = beAWTag.toLocaleString('de-DE', {minimumFractionDigits:0, maximumFractionDigits:0});
+  // 3-MONATS KARTEN
+  var cardsHtml = '';
+  for(var i = 1; i <= zyklusMo; i++){
+    var isHeim = i > mA;
+    var cls    = isHeim ? 'heim' : 'arb';
+    var status = isHeim ? 'Zuhause' : 'Arbeitend';
+    var lohn   = isHeim ? lHeimM : lArbM;
+    var karten_var = isHeim ? 0 : varMonat;
+    var gesamt = lohn + bahnM + karten_var;
+    var lohnColor = isHeim ? '#ff6a00' : '#ccc';
+    var gesamtColor = isHeim ? '#ff6a00' : '#3fb950';
+    cardsHtml += '<div class="monat-card ' + cls + '">'
+      + '<div class="m-num">M' + i + '</div>'
+      + '<div class="m-status ' + cls + '">' + status + '</div>'
+      + '<div class="m-row"><span class="m-label">Lohn+AG</span><span class="m-val" style="color:' + lohnColor + '">' + fmt(lohn) + '</span></div>'
+      + '<div class="m-row"><span class="m-label">Bahn</span><span class="m-val o">' + fmt(bahnM) + '</span></div>';
+    if(!isHeim){
+      cardsHtml += '<div class="m-row"><span class="m-label">Variabel</span><span class="m-val w">' + fmt(varMonat) + '</span></div>';
+    }
+    cardsHtml += '<div class="m-total">'
+      + '<span class="m-total-label">Gesamt</span>'
+      + '<span class="m-total-val" style="color:' + gesamtColor + '">' + fmt(gesamt) + '</span>'
+      + '</div></div>';
+  }
+  document.getElementById('monatCards').innerHTML = cardsHtml;
 
-  var statusText = status === 'ok' ? '✓ Gut erreichbar — unter 7h pro Monteur'
-    : status === 'warn' ? '⚠ Grenzwertig — prüfe ob Kosten senkbar'
-    : '✗ Kritisch — Kosten zu hoch für 12h/Tag Limit';
-
-  set('beSub',
-    '<strong>' + beHTag.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1}) + 'h gesamt / Tag</strong> = je Monteur '
-    + '<strong style="color:' + (status==='ok'?'#3fb950':status==='warn'?'#ff6a00':'#f44336') + '">'
-    + beHProMA.toLocaleString('de-DE',{minimumFractionDigits:1,maximumFractionDigits:1}) + 'h / Tag = '
-    + beProMA.toLocaleString('de-DE',{minimumFractionDigits:0,maximumFractionDigits:0}) + ' AW</strong><br>'
-    + 'Umsatz der nötig ist: <strong>' + fmt(kostenProArbM) + '/Monat</strong><br>'
-    + statusText
+  // BREAK-EVEN CARD
+  var bStatus = beHTag <= 7 ? 'gruen' : beHTag <= 9 ? 'orange' : 'rot';
+  var card = document.getElementById('beCard');
+  card.className = 'be-card ' + bStatus;
+  var bigEl = document.getElementById('beBig');
+  bigEl.className = 'be-big ' + bStatus;
+  bigEl.textContent = fmtN(beAWTag, 0);
+  var statusMsg = bStatus === 'gruen' ? '✓ Gut erreichbar — unter 7 Stunden nötig'
+    : bStatus === 'orange' ? '⚠ Grenzwertig — 7–9 Stunden nötig, knapp'
+    : '✗ Kritisch — über 9 Stunden nötig, Kosten prüfen!';
+  set('beDetail',
+    '<strong>' + fmtN(beHTag,1) + ' Stunden / Tag</strong> müssen fakturiert werden<br>'
+    + 'Bei ' + tage + ' Arbeitstagen = <strong>' + fmtN(beAWTag*tage,0) + ' AW / Monat</strong><br>'
+    + 'Umsatz nötig: <strong>' + fmt(kostenProM) + ' / Monat</strong><br>'
+    + statusMsg
   );
 
-  // DB BALKEN
-  var szenarien = [
-    {label:'6h/MA',  h:6},
-    {label:'8h/MA',  h:8},
-    {label:'10h/MA', h:10},
-    {label:'12h/MA', h:12}
-  ];
-  var dbWerte = szenarien.map(function(sc) {
-    return sc.h * AW_H * anzMA * awP * tage - kostenProArbM;
-  });
-  var maxAbs = Math.max.apply(null, dbWerte.map(Math.abs));
-  if (maxAbs === 0) maxAbs = 1;
+  // Tages-Check
+  set('awZielTag', fmtN(beAWTag,0) + ' AW (' + fmtN(beHTag,1) + ' Stunden)');
 
+  // DB BALKEN
+  var szenarien = [4,6,8,10,12].map(function(h){
+    return { label: h + 'h / Tag\n(' + (h*AW_H) + ' AW)', h: h, db: h*AW_H*awP*tage - kostenProM };
+  });
+  var maxAbs = Math.max.apply(null, szenarien.map(function(s){ return Math.abs(s.db); }));
+  if(maxAbs === 0) maxAbs = 1;
   var barsHtml = '';
-  for (var i = 0; i < szenarien.length; i++) {
-    var db  = dbWerte[i];
-    var pct = Math.abs(db) / maxAbs * 100;
-    var clr = db >= 0 ? '#3fb950' : '#f44336';
+  szenarien.forEach(function(sc){
+    var pct = Math.abs(sc.db) / maxAbs * 100;
+    var clr = sc.db > kostenProM * 0.05 ? '#3fb950' : sc.db >= 0 ? '#ff6a00' : '#f44336';
+    var sign = sc.db >= 0 ? '+' : '';
     barsHtml += '<div class="db-row">'
-      + '<div class="db-label">' + szenarien[i].label + '</div>'
-      + '<div class="db-bar-wrap"><div class="db-bar" style="width:' + pct + '%;background:' + clr + ';opacity:0.75"></div></div>'
-      + '<div class="db-val" style="color:' + clr + '">' + (db>=0?'+':'') + fmt(db) + '</div>'
+      + '<div class="db-label">' + sc.label.replace('\n','<br>') + '</div>'
+      + '<div class="db-bar-wrap"><div class="db-bar" style="width:' + pct + '%;background:' + clr + ';opacity:0.8"></div></div>'
+      + '<div class="db-val" style="color:' + clr + '">' + sign + fmt(sc.db) + '</div>'
       + '</div>';
-  }
+  });
   document.getElementById('dbBars').innerHTML = barsHtml;
 
   // TABELLE
-  var beRowH = Math.ceil(beHProMA);
   var html = '';
-  for (var h = 4; h <= 12; h++) {
-    var awTag2   = h * AW_H * anzMA;
-    var umM      = awTag2 * awP * tage;
-    var dbM      = umM - kostenProArbM;
-    var dbZyklus = umM * mA - kostenZyklus;
-    var isBE     = h === beRowH;
-    var rowCls   = isBE ? 'be-row' : dbM > 0 ? 'plus-row' : 'minus-row';
-    var dbCol    = dbM >= 0 ? '#3fb950' : '#f44336';
-    var dzCol    = dbZyklus >= 0 ? '#3fb950' : '#f44336';
-    html += '<tr class="' + rowCls + '">'
-      + '<td>' + h + 'h' + (isBE ? ' ◀' : '') + '</td>'
-      + '<td>' + awTag2 + '</td>'
-      + '<td>' + fmt(umM) + '</td>'
-      + '<td style="color:' + dbCol + '">' + (dbM>=0?'+':'') + fmt(dbM) + '</td>'
-      + '<td style="color:' + dzCol + '">' + (dbZyklus>=0?'+':'') + fmt(dbZyklus) + '</td>'
+  for(var h = 4; h <= 12; h++){
+    var awT   = h * AW_H;
+    var umTag = awT * awP;
+    var umM   = umTag * tage;
+    var dbM   = umM - kostenProM;
+    var dbZyk = umM * mA - kostenZyklus;
+    var isBE  = h === beRowH;
+
+    // Ampel
+    var dot, rowBg;
+    if(isBE){
+      dot = '🟠'; rowBg = '#2a1200';
+    } else if(dbM < 0){
+      dot = '🔴'; rowBg = h % 2 === 0 ? '#1a0a0a' : '#1e0e0e';
+    } else if(dbM < kostenProM * 0.1){
+      dot = '🟠'; rowBg = h % 2 === 0 ? '#1a1200' : '#1e1600';
+    } else {
+      dot = '🟢'; rowBg = h % 2 === 0 ? '#0a1a0a' : '#0e1e0e';
+    }
+
+    var dbColor = dbM > 0 ? '#3fb950' : '#f44336';
+    var dzColor = dbZyk > 0 ? '#3fb950' : '#f44336';
+
+    html += '<tr class="' + (isBE ? 'be-row' : '') + '" style="background:' + (isBE ? '#2a1200' : rowBg) + '">'
+      + '<td>' + dot + ' ' + h + 'h' + (isBE ? ' ◀ BE' : '') + '</td>'
+      + '<td>' + awT + '</td>'
+      + '<td>' + fmt(umTag) + '</td>'
+      + '<td style="color:' + dbColor + '">' + (dbM>=0?'+':'') + fmt(dbM) + '</td>'
+      + '<td style="color:' + dzColor + '">' + (dbZyk>=0?'+':'') + fmt(dbZyk) + '</td>'
       + '</tr>';
   }
   document.getElementById('tblBody').innerHTML = html;
